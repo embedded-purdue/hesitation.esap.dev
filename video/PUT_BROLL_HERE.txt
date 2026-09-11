@@ -1,0 +1,8 @@
+Place your exported 2 MB B-roll video in this folder and name it:
+
+broll.mp4
+
+Final path:
+video/broll.mp4
+
+You can also replace broll-poster.webp with a frame from your actual video.

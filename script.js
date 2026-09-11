@@ -122,6 +122,17 @@ controls.rotateSpeed = 0.50;
 
 controls.target.set(0, 0, 0);
 
+/*
+  MOBILE SCROLL FIX
+
+  OrbitControls writes `touch-action: none` onto its canvas.
+  That can trap the user inside the 3D model on phones.
+
+  Restoring `pan-y` here lets vertical swipes scroll the page,
+  while horizontal gestures can still rotate the model.
+*/
+renderer.domElement.style.touchAction = "pan-y";
+
 
 /* =========================================================
    CURSOR-FOLLOW MOTION
@@ -159,6 +170,14 @@ stage.addEventListener(
   "pointermove",
   (event) => {
 
+    /*
+      Cursor-follow is desktop-only.
+      Touch input should remain available for scrolling.
+    */
+    if (event.pointerType === "touch") {
+      return;
+    }
+
     const rect =
       stage.getBoundingClientRect();
 
@@ -195,6 +214,16 @@ stage.addEventListener(
 canvas.addEventListener(
   "pointerdown",
   (event) => {
+
+    /*
+      Do not manually capture touch pointers.
+      This allows the browser to turn vertical finger movement
+      into normal page scrolling.
+    */
+    if (event.pointerType === "touch") {
+      isDragging = false;
+      return;
+    }
 
     isDragging = true;
 
@@ -750,3 +779,183 @@ window.addEventListener(
   "resize",
   resize
 );
+
+
+/* =========================================================
+   B-ROLL LAZY LOADING
+   ---------------------------------------------------------
+   The 2 MB video starts downloading only when the section is
+   about one viewport away. This keeps the initial 3D experience
+   from competing with the video for bandwidth.
+========================================================= */
+
+const brollSection =
+  document.querySelector("#broll");
+
+const brollVideo =
+  document.querySelector("#broll-video");
+
+let brollRequested = false;
+
+function loadBroll() {
+
+  if (
+    !brollSection ||
+    !brollVideo ||
+    brollRequested
+  ) {
+    return;
+  }
+
+  brollRequested = true;
+
+  brollVideo.src =
+    "video/broll.mp4";
+
+  brollVideo.load();
+
+  const markReady = () => {
+    brollSection.classList.add(
+      "is-ready"
+    );
+  };
+
+  brollVideo.addEventListener(
+    "canplay",
+    markReady,
+    { once: true }
+  );
+
+}
+
+
+/*
+  Begin downloading when the B-roll section is roughly
+  one viewport away from view.
+*/
+if (
+  brollSection &&
+  brollVideo &&
+  "IntersectionObserver" in window
+) {
+
+  const brollLoadObserver =
+    new IntersectionObserver(
+      (entries, observer) => {
+
+        entries.forEach(
+          (entry) => {
+
+            if (entry.isIntersecting) {
+              loadBroll();
+              observer.disconnect();
+            }
+
+          }
+        );
+
+      },
+      {
+        root: null,
+        rootMargin: "100% 0px",
+        threshold: 0
+      }
+    );
+
+  brollLoadObserver.observe(
+    brollSection
+  );
+
+} else {
+
+  /*
+    Older-browser fallback.
+  */
+  window.addEventListener(
+    "load",
+    () => {
+      setTimeout(
+        loadBroll,
+        1200
+      );
+    },
+    { once: true }
+  );
+
+}
+
+
+/*
+  Play only when the video section is visible.
+  Pause when it leaves the viewport.
+*/
+if (
+  brollSection &&
+  brollVideo &&
+  "IntersectionObserver" in window
+) {
+
+  const brollPlayObserver =
+    new IntersectionObserver(
+      (entries) => {
+
+        entries.forEach(
+          (entry) => {
+
+            if (
+              entry.isIntersecting &&
+              entry.intersectionRatio > 0.18
+            ) {
+
+              loadBroll();
+
+              brollVideo
+                .play()
+                .catch(() => {});
+
+            } else {
+
+              brollVideo.pause();
+
+            }
+
+          }
+        );
+
+      },
+      {
+        threshold: [
+          0,
+          0.18,
+          0.5,
+          1
+        ]
+      }
+    );
+
+  brollPlayObserver.observe(
+    brollSection
+  );
+
+}
+
+
+/*
+  Fade the video in once enough data is available.
+*/
+if (brollVideo) {
+
+  brollVideo.addEventListener(
+    "playing",
+    () => {
+
+      if (brollSection) {
+        brollSection.classList.add(
+          "is-ready"
+        );
+      }
+
+    }
+  );
+
+}

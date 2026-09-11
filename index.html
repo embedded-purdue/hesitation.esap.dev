@@ -49,7 +49,14 @@
 
         <div class="model-ui">
           <span class="model-ui-line"></span>
-          MOVE CURSOR / DRAG TO EXPLORE
+
+          <span class="model-ui-desktop">
+            MOVE CURSOR / DRAG TO EXPLORE
+          </span>
+
+          <span class="model-ui-mobile">
+            SWIPE UP TO CONTINUE / DRAG SIDEWAYS TO ROTATE
+          </span>
         </div>
 
       </section>
@@ -59,6 +66,56 @@
       </div>
 
       <div class="grain" aria-hidden="true"></div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =====================================================
+       PROJECT B-ROLL
+  ====================================================== -->
+  <section class="broll-section" id="broll">
+
+    <div class="broll-media">
+
+      <!--
+        Put your optimized video here:
+        video/broll.mp4
+
+        The src is intentionally added by JavaScript only when
+        the user approaches this section, so it does not compete
+        with the 3D model during initial page load.
+      -->
+      <video
+        id="broll-video"
+        class="broll-video"
+        muted
+        loop
+        playsinline
+        preload="none"
+        poster="video/broll-poster.webp"
+        aria-label="Hesitation project development B-roll">
+      </video>
+
+      <div class="broll-shade" aria-hidden="true"></div>
+
+      <div class="broll-index">
+        01 / DEVELOPMENT
+      </div>
+
+      <div class="broll-copy">
+        <h2>
+          BUILT TO TEST.<br>
+          BUILT TO HESITATE.
+        </h2>
+      </div>
+
+      <div class="broll-status">
+        <span class="broll-status-dot"></span>
+        PROJECT B-ROLL
+      </div>
 
     </div>
 
@@ -99,12 +156,12 @@
         <div class="summary-item">
           <span>M1 / AUTONOMOUS REACTOR CONTROL</span>
           <p>
-            TBD
+            Nov. 6 2027
           </p>
         </div>
 
         <div class="summary-item">
-          <span>M2 / ~</span>
+          <span>M2 / HIL INJECTIONS</span>
           <p>
             TBD
           </p>
@@ -122,6 +179,186 @@
       <a class="summary-link" href="#hero">
         BACK TO TOP
         <span>↗</span>
+      </a>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =====================================================
+       FUTURE TEAM MEMBER CARDS — CURRENTLY DISABLED
+
+       This is the previous individual-card layout.
+       To restore it later:
+       1. Remove the outer FUTURE TEAM MEMBER CARDS comment markers.
+       2. Rename its section id if needed.
+       3. The supporting CSS is intentionally still kept in styles.css.
+
+  <!-- =====================================================
+       MEET THE TEAM
+  ====================================================== -- >
+  <section class="team-section" id="team">
+
+    <div class="team-header">
+      <div class="team-eyebrow">PEOPLE / 04</div>
+
+      <h2>MEET THE TEAM</h2>
+
+      <p>The engineers behind Hesitation.</p>
+    </div>
+
+    <div class="team-grid">
+
+      <article class="team-member">
+        <div class="team-photo-wrap">
+          <img src="team/member1.png" alt="Team member 1" class="team-photo" />
+          <div class="team-photo-overlay"></div>
+          <span class="member-number">01</span>
+        </div>
+        <div class="member-info">
+          <div>
+            <h3>FIRST LAST</h3>
+            <p>PROJECT LEAD / EMBEDDED SYSTEMS</p>
+          </div>
+          <span class="member-arrow">↗</span>
+        </div>
+      </article>
+
+      <article class="team-member">
+        <div class="team-photo-wrap">
+          <img src="team/member2.png" alt="Team member 2" class="team-photo" />
+          <div class="team-photo-overlay"></div>
+          <span class="member-number">02</span>
+        </div>
+        <div class="member-info">
+          <div>
+            <h3>FIRST LAST</h3>
+            <p>CONTROLS / SOFTWARE</p>
+          </div>
+          <span class="member-arrow">↗</span>
+        </div>
+      </article>
+
+      <article class="team-member">
+        <div class="team-photo-wrap">
+          <img src="team/member3.png" alt="Team member 3" class="team-photo" />
+          <div class="team-photo-overlay"></div>
+          <span class="member-number">03</span>
+        </div>
+        <div class="member-info">
+          <div>
+            <h3>FIRST LAST</h3>
+            <p>HARDWARE / TEST SYSTEMS</p>
+          </div>
+          <span class="member-arrow">↗</span>
+        </div>
+      </article>
+
+      <article class="team-member">
+        <div class="team-photo-wrap">
+          <img src="team/member4.png" alt="Team member 4" class="team-photo" />
+          <div class="team-photo-overlay"></div>
+          <span class="member-number">04</span>
+        </div>
+        <div class="member-info">
+          <div>
+            <h3>FIRST LAST</h3>
+            <p>SIMULATION / MODELING</p>
+          </div>
+          <span class="member-arrow">↗</span>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="team-footer">
+      <span>HESITATION / 2026</span>
+
+      <a href="#hero">
+        BACK TO TOP
+        <span>↑</span>
+      </a>
+    </div>
+
+  </section>
+
+       END FUTURE TEAM MEMBER CARDS
+  ====================================================== -->
+
+
+  <!-- =====================================================
+       MEET THE TEAM — FULL TEAM PHOTO
+  ====================================================== -->
+  <section class="team-group-section" id="team">
+
+    <div class="team-group-header">
+
+      <div class="team-group-eyebrow">
+      </div>
+
+      <h2>
+        MEET THE TEAM
+      </h2>
+
+      <p>
+      </p>
+
+    </div>
+
+
+    <figure class="team-group-figure">
+
+      <div class="team-group-image-wrap">
+
+        <!--
+          Replace team/team-full.png with your real full-team photograph.
+          Keeping the same filename means you do not need to edit this HTML.
+        -->
+        <img
+          src="team/team-full.jpeg"
+          alt="The Hesitation project team"
+          class="team-group-image"
+        />
+
+        <div class="team-group-shade" aria-hidden="true"></div>
+
+        <div class="team-group-corner team-group-corner-left">
+          HESITATION 
+        </div>
+
+        <div class="team-group-corner team-group-corner-right">
+          PROJECT TEAM
+        </div>
+
+      </div>
+
+
+      <figcaption class="team-group-caption">
+
+        <div class="team-group-caption-label">
+          THE TEAM
+        </div>
+
+        <p>
+          Hesitation team photos coming 9/13 :)
+          </p>
+
+      </figcaption>
+
+    </figure>
+
+
+    <div class="team-group-footer">
+
+      <span>
+        HESITATION 
+      </span>
+
+      <a href="#hero">
+        BACK TO TOP
+        <span>↑</span>
       </a>
 
     </div>
